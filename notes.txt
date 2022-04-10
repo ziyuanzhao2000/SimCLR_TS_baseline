@@ -1,0 +1,9 @@
+1. I was confused as to the dataset splitting in the demo notebook. There, the train and test users are fixed. But is this
+even a good idea? The paper doesn't seem to mention split. So for my first scenario of Physionet2017 -> EMG, I'm just
+using the original train/test split from the Physionet database itself.
+
+2. train / val split ratio is 80 to 20, doesn't seem to be mentioned in the paper so jotting down here for reference.
+
+3. There's a bug with `get_windows_dataset_from_user_list_format()` that I reported on the original repo.
+
+4. Question: to reproduce as baseline, what combinations of two transformations to use?

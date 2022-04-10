@@ -64,6 +64,7 @@ def sliding_window_np(X, window_size, shift, stride, offset=0, flatten=None):
 
     overall_window_size = (window_size - 1) * stride + 1
     num_windows = (X.shape[0] - offset - (overall_window_size)) // shift + 1
+    assert(num_windows > 0)
     windows = []
     for i in range(num_windows):
         start_index = i * shift + offset
@@ -117,9 +118,9 @@ def get_windows_dataset_from_user_list_format(user_datasets, window_size=400, sh
         y = []
 
         # Loop through each trail of each user
-        for v,l in user_datasets[user_id]:
+        for v, l in user_datasets[user_id]:
             v_windowed = sliding_window_np(v, window_size, shift, stride)
-            
+
             # flatten the window by majority vote (1 value for each window)
             l_flattened = sliding_window_np(l, window_size, shift, stride, flatten=get_mode)
             if len(v_windowed) > 0:
@@ -129,7 +130,11 @@ def get_windows_dataset_from_user_list_format(user_datasets, window_size=400, sh
                 print(f"Data: {v_windowed.shape}, Labels: {l_flattened.shape}")
 
         # combine all trials
-        user_dataset_windowed[user_id] = (np.concatenate(x), np.concatenate(y).squeeze())
+        if len(y) == 1:
+            user_dataset_windowed[user_id] = (np.concatenate(x), np.concatenate(y))
+        else:
+            user_dataset_windowed[user_id] = (np.concatenate(x), np.concatenate(y).squeeze())
+
     return user_dataset_windowed
 
 def combine_windowed_dataset(user_datasets_windowed, train_users, test_users=None, verbose=0):
@@ -163,28 +168,30 @@ def combine_windowed_dataset(user_datasets_windowed, train_users, test_users=Non
     train_y = []
     test_x = []
     test_y = []
+#     counter = 0
     for user_id in user_datasets_windowed:
         
         v,l = user_datasets_windowed[user_id]
+#         print(user_id, l, l.shape, counter)
         if user_id in train_users:
             if verbose > 0:
                 print(f"{user_id} Train")
-            train_x.append(v)
-            train_y.append(l)
+            if l.size > 0 and l.shape[0] > 0:
+                train_x.append(v)
+                train_y.append(l)
         elif test_users is None or user_id in test_users:
             if verbose > 0:
                 print(f"{user_id} Test")
             test_x.append(v)
             test_y.append(l)
     
-
+#     print([arr.shape for arr in train_y])
     if len(train_x) == 0:
         train_x = np.array([])
         train_y = np.array([])
     else:
         train_x = np.concatenate(train_x)
         train_y = np.concatenate(train_y).squeeze()
-    
     if len(test_x) == 0:
         test_x = np.array([])
         test_y = np.array([])
