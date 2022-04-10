@@ -88,5 +88,5 @@ plt.plot(epoch_losses)
 plt.ylabel("Loss")
 plt.xlabel("Epoch")
 plt.show()
-plt.savefig(os.path.join(simclr_model_save_path, "epoch_loss_plot.png"))
+plt.savefig(os.path.join(working_directory, "epoch_loss_plot.png"))
 
