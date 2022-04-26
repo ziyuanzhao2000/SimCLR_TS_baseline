@@ -3,7 +3,6 @@ import numpy as np
 train_dict = torch.load('train.pt')
 val_dict = torch.load('val.pt')
 test_dict = torch.load('test.pt')
-
 np.save('train_x.npy', train_dict['samples'].transpose(1,2))
 np.save('test_x.npy', test_dict['samples'].transpose(1,2))
 np.save('val_x.npy', val_dict['samples'].transpose(1,2))

@@ -286,6 +286,8 @@ def evaluate_model_simple(pred, truth, is_one_hot=True, return_dict=True):
         pred_argmax = pred
 
     test_cm = sklearn.metrics.confusion_matrix(truth_argmax, pred_argmax)
+    test_auroc = sklearn.metrics.roc_auc_score(truth, pred, multi_class='ovr')
+    test_acc = sklearn.metrics.accuracy(truth, pred)
     test_f1 = sklearn.metrics.f1_score(truth_argmax, pred_argmax, average='macro')
     test_precision = sklearn.metrics.precision_score(truth_argmax, pred_argmax, average='macro')
     test_recall = sklearn.metrics.recall_score(truth_argmax, pred_argmax, average='macro')
@@ -296,6 +298,8 @@ def evaluate_model_simple(pred, truth, is_one_hot=True, return_dict=True):
 
     if return_dict:
         return {
+            'Accuracy': test_acc,
+            'AUROC': test_auroc
             'Confusion Matrix': test_cm, 
             'F1 Macro': test_f1, 
             'F1 Micro': test_f1_micro, 
@@ -305,7 +309,7 @@ def evaluate_model_simple(pred, truth, is_one_hot=True, return_dict=True):
             'Kappa': test_kappa
         }
     else:
-        return (test_cm, test_f1, test_f1_micro, test_f1_weighted, test_precision, test_recall, test_kappa)
+        return (test_acc, test_auroc, test_cm, test_f1, test_f1_micro, test_f1_weighted, test_precision, test_recall, test_kappa)
 
 """
 The following section of this file includes software licensed under the Apache License 2.0, by The SimCLR Authors 2020, modified by C. I. Tang.
