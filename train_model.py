@@ -42,7 +42,7 @@ input_shape = (178, 1)
 # SIMCLR training
 batch_size = 512
 decay_steps = 1000
-epochs = 200
+epochs = 50
 temperature = 0.1
 transform_funcs = [
 #     transformations.rotation_transform_vectorized # Use rotation trasnformation
