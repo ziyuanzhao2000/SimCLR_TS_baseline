@@ -15,8 +15,11 @@ aliases = ['training2017', 'validation']
 
 sampling_fs = 300 # Hz
 window_len = 1500 # samples
-validation_prefix = 'V'  # for disambiguating patient id in validation set from those in the training set
+testing_prefix = 'T'  # for disambiguating patient id in testing set from those in the training set
 dataset = {}
+
+# first step is to obtain a dataset dictionary with entries of
+# id : [(signal (2D numpy matrix), diagnosis (1D list))]
 
 for alias in aliases:
     basepath = f'{os.getcwd()}/{data_folder}/{alias}'
@@ -32,17 +35,17 @@ for alias in aliases:
     for file_name, diagnosis in tqdm(zip(file_names, diagnoses)):
         signal, _ = wfdb.rdsamp(os.path.join(basepath, file_name))
         if alias == 'validation':
-            file_name = validation_prefix + file_name
+            file_name = testing_prefix + file_name
         assert(signal.shape[0] > window_len)
-        dataset[file_name] = [(signal, np.array([diagnosis]*len(signal)))] # file_name is just
+        dataset[file_name] = [(signal, np.array([diagnosis]*len(signal)))] # file_name is just patient id
 
 label_map = {'N':0, 'A':1, 'O':2, '~':3}
 
 train, val, test = data_pre_processing.pre_process_dataset_composite(
     user_datasets=dataset,
     label_map=label_map,
-    train_users=[username for username in dataset.keys() if not validation_prefix in username],
-    test_users=[username for username in dataset.keys() if validation_prefix in username],
+    train_users=[username for username in dataset.keys() if not testing_prefix in username],
+    test_users=[username for username in dataset.keys() if testing_prefix in username],
     output_shape=len(label_map),
     window_size=window_len,
     shift=window_len # no overlap

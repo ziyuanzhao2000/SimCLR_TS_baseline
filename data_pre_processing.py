@@ -120,7 +120,6 @@ def get_windows_dataset_from_user_list_format(user_datasets, window_size=400, sh
         # Loop through each trail of each user
         for v, l in user_datasets[user_id]:
             v_windowed = sliding_window_np(v, window_size, shift, stride)
-
             # flatten the window by majority vote (1 value for each window)
             l_flattened = sliding_window_np(l, window_size, shift, stride, flatten=get_mode)
             if len(v_windowed) > 0:

@@ -24,13 +24,13 @@ import simclr_models
 import simclr_utitlities
 import transformations
 
-working_directory = 'test_run/'
+working_directory = 'sleepEDF/'
 dataset_save_path = working_directory
 if not os.path.exists(working_directory):
     os.mkdir(working_directory)
 
 # Load preprocessed data
-data_folder = 'test_run'
+data_folder = 'sleepEDF'
 np_train = (np.load(os.path.join(data_folder, 'train_x.npy')),
            np.load(os.path.join(data_folder, 'train_y.npy')))
 np_val = (np.load(os.path.join(data_folder, 'val_x.npy')),
