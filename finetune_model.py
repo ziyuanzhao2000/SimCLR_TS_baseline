@@ -24,22 +24,21 @@ import simclr_models
 import simclr_utitlities
 import transformations
 
-working_directory = 'test_run/'
+working_directory = 'epilepsy/'
 dataset_save_path = working_directory
 if not os.path.exists(working_directory):
     os.mkdir(working_directory)
 
 # Load preprocessed data
-data_folder = 'test_run'
-alias = 'emg'
-np_train = (np.load(os.path.join(data_folder, alias, 'train_x.npy')),
-           np.load(os.path.join(data_folder, alias, 'train_y.npy')))
-np_val = (np.load(os.path.join(data_folder, alias, 'val_x.npy')),
-           np.load(os.path.join(data_folder, alias, 'val_y.npy')))
-np_test = (np.load(os.path.join(data_folder, alias, 'test_x.npy')),
-           np.load(os.path.join(data_folder, alias, 'test_y.npy')))
+data_folder = 'epilepsy'
+np_train = (np.load(os.path.join(data_folder, 'train_x.npy')),
+           np.load(os.path.join(data_folder, 'train_y.npy')))
+np_val = (np.load(os.path.join(data_folder, 'val_x.npy')),
+           np.load(os.path.join(data_folder, 'val_y.npy')))
+np_test = (np.load(os.path.join(data_folder, 'test_x.npy')),
+           np.load(os.path.join(data_folder, 'test_y.npy')))
 
-input_shape = (1500, 1)
+input_shape = (178, 1)
 
 start_time = datetime.datetime.now()
 start_time_str = start_time.strftime("%Y%m%d-%H%M%S")
