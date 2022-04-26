@@ -45,16 +45,16 @@ start_time_str = start_time.strftime("%Y%m%d-%H%M%S")
 tf.keras.backend.set_floatx('float32')
 
 # SIMCLR _finetuning
-output_shape = 3
+output_shape = 2 # edit this to be the number of label classes
 total_epochs = 10
 batch_size = 1
 
 base_model = simclr_models.create_base_model(input_shape, model_name="base_model")
 pretrained_model = simclr_models.attach_simclr_head(base_model)
 
-pretrained_model = tf.keras.models.load_model(os.path.join(working_directory, 'base_model.hdf5'))
+pretrained_model = tf.keras.models.load_model(os.path.join(working_directory, '20220425-232744_simclr.hdf5'))
 
-linear_evaluation_model = simclr_models.create_linear_model_from_base_model(pretrained_model, output_shape = 3)
+linear_evaluation_model = simclr_models.create_linear_model_from_base_model(pretrained_model, output_shape=output_shape)
 
 linear_eval_best_model_file_name = f"{working_directory}{start_time_str}_finetuning.hdf5"
 best_model_callback = tf.keras.callbacks.ModelCheckpoint(linear_eval_best_model_file_name,
