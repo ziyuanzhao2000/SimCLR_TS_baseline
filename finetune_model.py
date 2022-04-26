@@ -24,7 +24,7 @@ import simclr_models
 import simclr_utitlities
 import transformations
 
-working_directory = 'epilepsy/'
+working_directory = 'sleepEDF/'
 dataset_save_path = working_directory
 if not os.path.exists(working_directory):
     os.mkdir(working_directory)
@@ -52,7 +52,7 @@ batch_size = 1
 base_model = simclr_models.create_base_model(input_shape, model_name="base_model")
 pretrained_model = simclr_models.attach_simclr_head(base_model)
 
-# pretrained_model = tf.keras.models.load_model(os.path.join(working_directory, 'base_model.hdf5'))
+pretrained_model = tf.keras.models.load_model(os.path.join(working_directory, 'base_model.hdf5'))
 
 linear_evaluation_model = simclr_models.create_linear_model_from_base_model(pretrained_model, output_shape = 3)
 
