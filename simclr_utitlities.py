@@ -299,7 +299,7 @@ def evaluate_model_simple(pred, truth, is_one_hot=True, return_dict=True):
     if return_dict:
         return {
             'Accuracy': test_acc,
-            'AUROC': test_auroc
+            'AUROC': test_auroc,
             'Confusion Matrix': test_cm, 
             'F1 Macro': test_f1, 
             'F1 Micro': test_f1_micro, 
