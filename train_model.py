@@ -37,7 +37,7 @@ np_val = (np.load(os.path.join(data_folder, 'val_x.npy')),
            np.load(os.path.join(data_folder, 'val_y.npy')))
 np_test = (np.load(os.path.join(data_folder, 'test_x.npy')),
            np.load(os.path.join(data_folder, 'test_y.npy')))
-input_shape = (178, 1)
+input_shape = (5120, 1)
 
 # SIMCLR training
 batch_size = 512
