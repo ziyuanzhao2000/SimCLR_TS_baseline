@@ -40,7 +40,7 @@ np_test = (np.load(os.path.join(data_folder, 'test_x.npy')),
 input_shape = (5120, 1)
 
 # SIMCLR training
-batch_size = 512
+batch_size = 128
 decay_steps = 1000
 epochs = 50
 temperature = 0.1
