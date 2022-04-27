@@ -72,7 +72,7 @@ training_history = linear_evaluation_model.fit(
 )
 
 linear_eval_best_model = tf.keras.models.load_model(linear_eval_best_model_file_name)
-
+print(np_test[0].shape, np_test[1].shape)
 print("Model with lowest validation Loss:")
 print(simclr_utitlities.evaluate_model_simple(linear_eval_best_model.predict(np_test[0]), np_test[1], return_dict=True))
 print("Model in last epoch")
