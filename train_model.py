@@ -30,7 +30,7 @@ if not os.path.exists(working_directory):
     os.mkdir(working_directory)
 
 # Load preprocessed data
-data_folder = 'sleepEDF'
+data_folder = 'pFD_A'
 np_train = (np.load(os.path.join(data_folder, 'train_x.npy')),
            np.load(os.path.join(data_folder, 'train_y.npy')))
 np_val = (np.load(os.path.join(data_folder, 'val_x.npy')),
