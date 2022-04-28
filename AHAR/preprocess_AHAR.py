@@ -3,9 +3,9 @@ import numpy as np
 train_dict = torch.load('train.pt')
 val_dict = torch.load('val.pt')
 test_dict = torch.load('test.pt')
-np.save('train_x.npy', np.expand_dims(train_dict['samples'], axis=2))
-np.save('test_x.npy', np.expand_dims(test_dict['samples'], axis=2))
-np.save('val_x.npy', np.expand_dims(val_dict['samples'], axis=2))
+np.save('train_x.npy', train_dict['samples'])
+np.save('test_x.npy', test_dict['samples'])
+np.save('val_x.npy', val_dict['samples'])
 
 def scatter_numpy(self, dim, index, src):
     """
