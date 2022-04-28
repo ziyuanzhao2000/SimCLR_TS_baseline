@@ -24,23 +24,23 @@ import simclr_models
 import simclr_utitlities
 import transformations
 
-working_directory = 'sleepEDF/'
+working_directory = 'HAR/'
 dataset_save_path = working_directory
 if not os.path.exists(working_directory):
     os.mkdir(working_directory)
 
 # Load preprocessed data
-data_folder = 'pFD_A'
+data_folder = 'HAR'
 np_train = (np.load(os.path.join(data_folder, 'train_x.npy')),
            np.load(os.path.join(data_folder, 'train_y.npy')))
 np_val = (np.load(os.path.join(data_folder, 'val_x.npy')),
            np.load(os.path.join(data_folder, 'val_y.npy')))
 np_test = (np.load(os.path.join(data_folder, 'test_x.npy')),
            np.load(os.path.join(data_folder, 'test_y.npy')))
-input_shape = (5120, 1)
+input_shape = (128, 1)
 
 # SIMCLR training
-batch_size = 128
+batch_size = 256
 decay_steps = 1000
 epochs = 50
 temperature = 0.1
